@@ -48,14 +48,6 @@ app.MapGet("/weatherforecast/{city}", (string city) =>
     })
     .WithName("GetWeatherForecastByCity");
 
-// New endpoint to predict if it will rain
-app.MapGet("/willitrain", () =>
-{
-    // Randomly decide if it will rain
-    var willRain = Random.Shared.Next(2) == 0 ? "Yes, it will rain!" : "No, it will not rain.";
-    return Results.Ok(new { WillItRain = willRain });
-});
-
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
