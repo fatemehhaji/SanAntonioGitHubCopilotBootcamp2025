@@ -1,0 +1,39 @@
+@model IEnumerable<UrlListApp.Models.UrlList>
+@{
+    ViewData["Title"] = "Your URL Lists";
+}
+<h1>Your URL Lists</h1>
+<a href="/lists/new" class="btn btn-primary">Create New List</a>
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Custom URL</th>
+            <th>Published</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var list in Model)
+    {
+        <tr>
+            <td>@list.Title</td>
+            <td>@(list.CustomUrl ?? list.GeneratedUrl)</td>
+            <td>@(list.IsPublished ? "Yes" : "No")</td>
+            <td>
+                <a href="/lists/@list.Id/edit" class="btn btn-sm btn-secondary">Edit</a>
+                <form asp-action="Delete" asp-route-id="@list.Id" method="post" style="display:inline">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+                @if (!list.IsPublished)
+                {
+                    <form asp-action="Publish" asp-route-id="@list.Id" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-sm btn-success">Publish</button>
+                    </form>
+                }
+                <a href="/lists/@list.Id/share" class="btn btn-sm btn-info">Share</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
