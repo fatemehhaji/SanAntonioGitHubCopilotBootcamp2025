@@ -1,0 +1,21 @@
+@model UrlListApp.Models.UrlList
+@{
+    ViewData["Title"] = Model.Title ?? "View List";
+}
+<h1>@Model.Title</h1>
+<ul>
+@foreach (var url in Model.Urls)
+{
+    <li>
+        <a href="@url.Url" target="_blank">@url.Url</a>
+        @if (!string.IsNullOrEmpty(url.Title))
+        {
+            <span>- @url.Title</span>
+        }
+        @if (!string.IsNullOrEmpty(url.Description))
+        {
+            <span> (@url.Description)</span>
+        }
+    </li>
+}
+</ul>

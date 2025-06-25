@@ -1,0 +1,13 @@
+@model UrlListApp.Models.UrlList
+@{
+    ViewData["Title"] = "Share List";
+    var url = Model.CustomUrl ?? Model.GeneratedUrl;
+}
+<h1>Share Your List</h1>
+<p>Your list is published! Share this link:</p>
+<div class="input-group mb-3">
+    <input type="text" class="form-control" value="/lists/view/@url" readonly />
+    <button class="btn btn-outline-secondary" type="button" onclick="navigator.clipboard.writeText('/lists/view/@url')">Copy</button>
+</div>
+<a href="/lists/view/@url" class="btn btn-primary">View List</a>
+<a href="/lists" class="btn btn-secondary">Back to Lists</a>

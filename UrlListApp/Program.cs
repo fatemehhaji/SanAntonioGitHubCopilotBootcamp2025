@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using UrlListApp.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<UrlListDbContext>(options =>
+    options.UseInMemoryDatabase("UrlListDb"));
 builder.Services.AddRazorPages();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -22,5 +28,8 @@ app.UseAuthorization();
 app.MapStaticAssets();
 app.MapRazorPages()
     .WithStaticAssets();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=UrlLists}/{action=Index}/{id?}");
 
 app.Run();

@@ -1,0 +1,35 @@
+@model UrlListApp.Models.UrlList
+@{
+    ViewData["Title"] = "Edit List";
+}
+<h1>Edit List</h1>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="CustomUrl" class="form-label">Custom URL (optional)</label>
+        <input asp-for="CustomUrl" class="form-control" />
+        <span asp-validation-for="CustomUrl" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="/lists" class="btn btn-secondary">Back</a>
+</form>
+
+<h2>URLs in this List</h2>
+<ul>
+@foreach (var url in Model.Urls)
+{
+    <li>
+        @url.Url
+        <form asp-action="DeleteUrl" asp-route-id="@url.Id" method="post" style="display:inline">
+            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+        </form>
+        <a href="/lists/edit-url/@url.Id" class="btn btn-sm btn-secondary">Edit</a>
+    </li>
+}
+</ul>
+<a href="/lists/add-url/@Model.Id" class="btn btn-success">Add URL</a>
